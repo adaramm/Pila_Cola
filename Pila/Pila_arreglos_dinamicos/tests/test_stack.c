@@ -2,9 +2,11 @@
 #include "../src/stack.h"
 
 START_TEST(test_stack_init) {
-    Stack stack;
-    stack_init(&stack);
+    Stack stack=  stack_create(5);
     ck_assert(stack_is_empty(&stack));
+    stack_delete(&stack);
+    ck_assert_ptr_null(stack.data);
+    
 }
 END_TEST
 
@@ -18,6 +20,8 @@ START_TEST(test_stack_push_pop) {
     ck_assert_int_eq(stack_pop(&stack), 20);
     ck_assert_int_eq(stack_pop(&stack), 10);
     ck_assert(stack_is_empty(&stack));
+    stack_delete(&stack);
+    ck_assert_ptr_null(stack.data);
 }
 END_TEST
 
